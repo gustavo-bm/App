@@ -1,10 +1,16 @@
+import { connect, connection, Document, model, Schema } from "mongoose";
 const { ObjectId } = require('mongoose').Types;
-const mongoose = require('mongoose');
 
-const accountSchema = new mongoose.Schema(
+interface IAccount extends Document {
+    user: Schema.Types.ObjectId,
+    account_type: string;
+    balance: number;
+}
+
+const accountSchema = new Schema<IAccount>(
     {
         user: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'User',
             required: true
         },
@@ -23,7 +29,8 @@ const accountSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('Account', accountSchema);
+const Account = model<IAccount>('Account', accountSchema);
+export default Account;
 
 /*<==========================STUDYING====================================> */
 
@@ -42,7 +49,6 @@ accountSchema.method({
     }
 });
 
-const Account = mongoose.model('Account', accountSchema);
 const newAccount = new Account;
 
 // newAccount.sendMoney();
@@ -59,7 +65,7 @@ const bulkOperations = [
 ];
 
 async function runBulkWrite() {
-    await mongoose.connect('mongodb+srv://gustavomoraes:senha123@cluster0.y0xgp.mongodb.net/');
+    await connect('mongodb+srv://gustavomoraes:senha123@cluster0.y0xgp.mongodb.net/');
 
     try {
         const result = await Account.bulkWrite(bulkOperations);
@@ -67,7 +73,7 @@ async function runBulkWrite() {
     } catch (error) {
         console.error('Error in bulk write:', error); 
     } finally { 
-        await mongoose.connection.close();
+        await connection.close();
     }
 }
 
