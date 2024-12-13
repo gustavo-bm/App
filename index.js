@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./models/userModel.js');
-const router = require('./routes/userRoute.js');
+const userRouter = require('./routes/userRoute.js');
+const accountRouter = require('./routes/accountRoute.js');
 const app = express();
 
 // middleware
@@ -9,9 +9,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 // routes
-app.use('/api/users', router);
+app.use('/api/users', userRouter);
+app.use('/api/accounts', accountRouter);
 
-mongoose.connect('mongodb://localhost:27017/')
+mongoose.connect('mongodb+srv://gustavomoraes:senha123@cluster0.y0xgp.mongodb.net/')
 .then(() => {
     console.log('Connected to database');
     app.listen(3000, () => {
