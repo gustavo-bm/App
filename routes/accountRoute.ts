@@ -1,6 +1,7 @@
-const express = require('express');
-const accountRouter = express.Router();
-const accountController = require('../controllers/accountController.js');
+import { Router } from 'express';
+const accountController = require('../controllers/accountController.ts');
+
+const accountRouter = Router();
 
 accountRouter.get('/', accountController.getAccounts);
 accountRouter.get('/:id', accountController.getAccountById);

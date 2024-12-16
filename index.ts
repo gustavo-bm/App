@@ -1,7 +1,7 @@
-const express = require('express');
 const mongoose = require('mongoose');
-const userRouter = require('./routes/userRoute.js');
-const accountRouter = require('./routes/accountRoute.js');
+const express = require('express');
+const userRouter = require('./routes/userRoute');
+const accountRouter = require('./routes/accountRoute');
 const app = express();
 
 // middleware
@@ -19,7 +19,11 @@ mongoose.connect('mongodb+srv://gustavomoraes:senha123@cluster0.y0xgp.mongodb.ne
         console.log('Server is running on port 3000');
     });
 })
-.catch((err) => {
-    console.error(err);
+.catch((error: unknown) => {
+    if (error instanceof Error) {
+        console.error(error.message);
+    } else {
+        console.error('An error occurred');
+    }
 });
 
