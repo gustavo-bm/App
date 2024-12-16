@@ -1,11 +1,5 @@
 import { connect, connection, Document, model, Schema } from "mongoose";
-const { ObjectId } = require('mongoose').Types;
-
-interface IAccount extends Document {
-    user: Schema.Types.ObjectId,
-    account_type: string;
-    balance: number;
-}
+import IAccount from "../interfaces/IAccount";
 
 const accountSchema = new Schema<IAccount>(
     {

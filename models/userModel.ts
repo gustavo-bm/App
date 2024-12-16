@@ -1,11 +1,5 @@
 import { Document, model, Schema } from 'mongoose';
-
-export interface IUser extends Document {
-    name: string;
-    age: number;
-    savings: number;
-    photo: string;
-}
+import IUser from '../interfaces/IUser';
 
 const userSchema = new Schema<IUser>(
     {

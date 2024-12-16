@@ -1,29 +1,31 @@
 import { Request, Response } from "express";
 import Account from '../models/accountModel';
+import IAccount from "../interfaces/IAccount";
 
-const getAccounts = async (req: Request, res: Response) => {
+const getAccounts = async (req: Request, res: Response): Promise<void> => {
     try {
-        const accounts = await Account.find().populate('user');
+        const accounts: IAccount[] = await Account.find().populate('user');
         res.status(200).json(accounts);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
 
-const getAccountById = (req: Request, res: Response) => {
+const getAccountById = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        const account = await Account.findById(id);
+        const account: IAccount | null = await Account.findById(id);
         if (!account) {
-            return res.status(404).json({ message: "Account not found" });
+            res.status(404).json({ message: "Account not found" });
+            return;
         }
         res.status(200).json(account);
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
 };
 
-const createAccount = (req: Request, res: Response) => {
+const createAccount = async (req: Request, res: Response): Promise<void> => {
     try {
         const account = await Account.create(req.body);
         res.status(200).json(account);
@@ -32,12 +34,13 @@ const createAccount = (req: Request, res: Response) => {
     }
 };
 
-const updateAccount = (req: Request, res: Response) => {
+const updateAccount = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        const account = await Account.findByIdAndUpdate(id, req.body, { new: true }); // Return updated document
+        const account: IAccount | null = await Account.findByIdAndUpdate(id, req.body, { new: true }); // Return updated document
         if (!account) {
-            return res.status(404).json({ message: "Account not found" });
+            res.status(404).json({ message: "Account not found" });
+            return;
         }
         res.status(200).json(account);
     } catch (error) {
@@ -45,12 +48,13 @@ const updateAccount = (req: Request, res: Response) => {
     }
 };
 
-const deleteAccount = (req: Request, res: Response) => {
+const deleteAccount = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        const account = await Account.findByIdAndDelete(id);
+        const account: IAccount | null = await Account.findByIdAndDelete(id);
         if (!account) {
-            return res.status(404).json({ message: "Account not found" });
+            res.status(404).json({ message: "Account not found" });
+            return;
         }
         res.status(200).json({ message: "Account deleted successfully" });
     } catch (error) {

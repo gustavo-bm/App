@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../models/userModel';
 
-
-const getUsers = async (req: Request, res: Response): Promise<any | typeof User> => {
+const getUsers = async (req: Request, res: Response): Promise<void> => {
     try {
         const users = await User.find();
         res.status(200).json(users);
@@ -11,12 +10,13 @@ const getUsers = async (req: Request, res: Response): Promise<any | typeof User>
     }
 };
 
-const getUserById = async (Request: Request, res: Response): Promise<any | typeof User> => {
+const getUserById = async (Request: Request, res: Response): Promise<void> => {
     try {
         const { id } = Request.params;
         const user = await User.findById(id);
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            res.status(404).json({ message: "User not found" });
+            return;
         }
         res.status(200).json(user);
     } catch (error) {
@@ -33,12 +33,13 @@ const createUser = async (Request: Request, res: Response): Promise<void> => {
     }
 };
 
-const updateUser = async (Request: Request, res: Response): Promise<any | typeof User> => {
+const updateUser = async (Request: Request, res: Response): Promise<void> => {
     try {
         const { id } = Request.params;
         const user = await User.findByIdAndUpdate(id, Request.body, { new: true }); // Return updated document
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            res.status(404).json({ message: "User not found" });
+            return;
         }
         res.status(200).json(user);
     } catch (error) {
@@ -46,12 +47,13 @@ const updateUser = async (Request: Request, res: Response): Promise<any | typeof
     }
 };
 
-const deleteUser = async (Request: Request, res: Response): Promise<any | typeof User> => {
+const deleteUser = async (Request: Request, res: Response): Promise<void> => {
     try {
         const { id } = Request.params;
         const user = await User.findByIdAndDelete(id);
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            res.status(404).json({ message: "User not found" });
+            return;
         }
         res.status(200).json({ message: "User deleted successfully" });
     } catch (error) {
