@@ -14,12 +14,12 @@
   "dependencies": {
     "@types/mongoose": "^5.11.96",
     "express": "^4.21.2",
-    "mongoose": "^8.8.4",
-    "nodemon": "^3.1.7"
+    "mongoose": "^8.8.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
+    "nodemon": "^3.1.9",
     "typescript": "^5.7.2"
   }
 }

@@ -1,4 +1,4 @@
-import { connect, connection, Document, model, Schema } from "mongoose";
+import { connect, connection, model, Schema } from "mongoose";
 import IAccount from "../interfaces/IAccount";
 
 const accountSchema = new Schema<IAccount>(
@@ -25,6 +25,25 @@ const accountSchema = new Schema<IAccount>(
 
 const Account = model<IAccount>('Account', accountSchema);
 export default Account;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*<==========================STUDYING====================================> */
 

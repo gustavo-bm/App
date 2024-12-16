@@ -92,6 +92,10 @@ const deleteAccount = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
+const makeTransaction = async (req: Request, res: Response): Promise<void> => {
+    
+}
+
 module.exports = {
     getAccounts,
     getAccountById,

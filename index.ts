@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const userRouter = require('./routes/userRoute');
 const accountRouter = require('./routes/accountRoute');
+const transferRouter = require('./routes/transferRoute');
 const app = express();
 
 // middleware
@@ -11,6 +12,7 @@ app.use(express.urlencoded({extended: false}));
 // routes
 app.use('/api/users', userRouter);
 app.use('/api/accounts', accountRouter);
+app.use('/api/trasnfers', transferRouter);
 
 mongoose.connect('mongodb+srv://gustavomoraes:senha123@cluster0.y0xgp.mongodb.net/')
 .then(() => {
