@@ -5,5 +5,6 @@ const transferRouter = Router();
 
 transferRouter.get('/', transferController.getTransfers);
 transferRouter.get('/:id', transferController.getTransfersFromAccount);
+transferRouter.post('/', transferController.makeTransfer);
 
 module.exports = transferRouter;

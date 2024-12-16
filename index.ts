@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended: false}));
 // routes
 app.use('/api/users', userRouter);
 app.use('/api/accounts', accountRouter);
-app.use('/api/trasnfers', transferRouter);
+app.use('/api/transfers', transferRouter);
 
 mongoose.connect('mongodb+srv://gustavomoraes:senha123@cluster0.y0xgp.mongodb.net/')
 .then(() => {
