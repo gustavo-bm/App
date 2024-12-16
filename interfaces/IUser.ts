@@ -1,5 +1,3 @@
-import User from "../models/userModel";
-
 export interface IUser extends Document {
     name: string;
     age: number;
