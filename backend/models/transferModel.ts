@@ -7,6 +7,10 @@ const trasnferModel = new Schema<ITransfer>({
             ref: 'Account',
             required: true
         },
+        mode: {
+            type: String, // if its from credit or balance
+            required: false
+        },
         receiver: {
             type: Schema.Types.ObjectId,
             ref: 'Account',
@@ -15,7 +19,8 @@ const trasnferModel = new Schema<ITransfer>({
         amount: {
             type: Number,
             required: true
-        }
+        },
+
     },
     {
     timestamps: true

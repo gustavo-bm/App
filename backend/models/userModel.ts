@@ -7,6 +7,16 @@ const userSchema = new Schema<IUser>(
             type: String,
             required: [true, "User name is required"]
         },
+        email: {
+            type: String,
+            required: [true, "User email is required"],
+            unique: true
+        },
+        cpf: {
+            type: String,
+            required: [true, "User CPF is required"],
+            unique: true
+        },
         age: {
             type: Number,
             required: true,

@@ -14,7 +14,7 @@ app.use('/api/users', userRouter);
 app.use('/api/accounts', accountRouter);
 app.use('/api/transfers', transferRouter);
 
-mongoose.connect('mongodb+srv://gustavomoraes:senha123@cluster0.y0xgp.mongodb.net/')
+mongoose.connect('mongodb+srv://gustavomoraes:senha123@cluster0.icm9u.mongodb.net/')
 .then(() => {
     console.log('Connected to database');
     app.listen(3000, () => {

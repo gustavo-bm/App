@@ -14,7 +14,8 @@
   "dependencies": {
     "@types/mongoose": "^5.11.96",
     "express": "^4.21.2",
-    "mongoose": "^8.8.4"
+    "mongoose": "^8.8.4",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

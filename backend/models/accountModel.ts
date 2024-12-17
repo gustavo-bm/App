@@ -16,6 +16,11 @@ const accountSchema = new Schema<IAccount>(
             type: Number,
             required: false,
             default: 0
+        },
+        credit: {
+            type: Number,
+            required: false,
+            default: 0
         }
     },
     {
