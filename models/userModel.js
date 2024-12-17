@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema(
+// creates a schema, basically an Interface to control models
+const userSchema = mongoose.Schema(
     {
         name: {
             type: String,
@@ -21,8 +22,9 @@ const userSchema = new mongoose.Schema(
         }
     },
     {
-        timestamps: true
+        timestamps: true // shows creation/update moments on time
     }
 );
 
-module.exports = mongoose.model('User', userSchema);
+// _id is added automatically, but you can overwrite it. { _id: false } disables the id
+module.exports = mongoose.model('User', userSchema); // necessary to use it elsewhere
