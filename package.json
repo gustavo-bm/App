@@ -5,15 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node index.js",
-    "dev": "nodemon index.js"
+    "serve": "node index.ts",
+    "dev": "nodemon index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mongoose": "^5.11.96",
     "express": "^4.21.2",
-    "mongoose": "^8.8.4",
-    "nodemon": "^3.1.7"
+    "mongoose": "^8.8.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.2"
   }
 }

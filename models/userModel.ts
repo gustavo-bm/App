@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import { Document, model, Schema } from 'mongoose';
+import IUser from '../interfaces/IUser';
 
-// creates a schema, basically an Interface to control models
-const userSchema = mongoose.Schema(
+const userSchema = new Schema<IUser>(
     {
         name: {
             type: String,
@@ -22,9 +22,9 @@ const userSchema = mongoose.Schema(
         }
     },
     {
-        timestamps: true // shows creation/update moments on time
+        timestamps: true
     }
 );
 
-// _id is added automatically, but you can overwrite it. { _id: false } disables the id
-module.exports = mongoose.model('User', userSchema); // necessary to use it elsewhere
+const User = model<IUser>('User', userSchema);
+export default User;
