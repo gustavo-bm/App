@@ -1,10 +1,12 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { createEvent, showEventInfo, persistUpdates, removeEvent } from '../services/eventFunctions';
 import { getEvents } from '../api/routes/eventRoute';
 import { useEffect, useRef } from 'react';
 import IEvent from '../interfaces/IEvent';
-import { createEvent, showEventInfo, persistUpdates, removeEvent } from '../services/eventFunctions';
+
+import '../styles/Calendar.css';
 
 function Calendar() {
   const calendarRef = useRef<FullCalendar>(null);
@@ -48,13 +50,12 @@ function Calendar() {
 
   const renderEventContent = (eventInfo: any) => {
     return (
-      <div>
-        <b>{eventInfo.timeText}</b>
-        <i>{eventInfo.event.title}</i>
-        <div>
-          <button onClick={() => handleEventClick(eventInfo)}>View</button>
-          <button onClick={() => handleEventChange(eventInfo)}>Update</button>
-          <button onClick={() => handleEventDelete(eventInfo)}>Delete</button>
+      <div className='event-content'>
+        <p>{eventInfo.event.title}</p>
+        <div className='event-buttons'>
+          <button className='event-button view' onClick={() => handleEventClick(eventInfo)}>View</button>
+          <button className='event-button update' onClick={() => handleEventChange(eventInfo)}>Update</button>
+          <button className='event-button delete' onClick={() => handleEventDelete(eventInfo)}>Delete</button>
         </div>
       </div>
     );
@@ -65,6 +66,11 @@ function Calendar() {
         ref={calendarRef}
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+        }}
+        editable={true}
         dateClick={handleDateClick}
         eventContent={renderEventContent} // allows to show buttons on events
       />
