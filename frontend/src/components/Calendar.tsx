@@ -3,13 +3,14 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { createEvent, showEventInfo, persistUpdates, removeEvent } from '../services/eventFunctions';
 import { getEvents } from '../api/routes/eventRoute';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import IEvent from '../interfaces/IEvent';
 
 import '../styles/Calendar.css';
 
 function Calendar() {
   const calendarRef = useRef<FullCalendar>(null);
+  const [theme, setTheme] = useState('light')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,21 +61,23 @@ function Calendar() {
       </div>
     );
   };
+
   return (
-    <>
+    <div>
       <FullCalendar
         ref={calendarRef}
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
-          left: 'prev,next today',
+          left: '',
           center: 'title',
+          right: 'prev,next today'
         }}
         editable={true}
         dateClick={handleDateClick}
         eventContent={renderEventContent} // allows to show buttons on events
       />
-    </>
+    </div>
   )
 }
 
