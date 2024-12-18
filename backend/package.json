@@ -13,7 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "@types/mongoose": "^5.11.96",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
+    "fullcalendar": "^6.1.15",
     "mongoose": "^8.8.4",
     "ts-node": "^10.9.2"
   },
