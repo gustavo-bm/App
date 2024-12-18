@@ -1,48 +1,75 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { postEvent } from '../api/routes/eventRoute';
+import { getEvents } from '../api/routes/eventRoute';
+import { useEffect, useRef } from 'react';
+import IEvent from '../interfaces/IEvent';
+import { createEvent, showEventInfo, persistUpdates, removeEvent } from '../services/eventFunctions';
 
 function Calendar() {
-    const handleDateClick = async (arg: any) => {
-        const title: string | null = prompt('Enter event title:');
-        if (title) {
-          const description: string | null = prompt('Enter event description:');
-          const location: string | null = prompt('Enter event location:');
-          // it makes the event appear locally
-          const newEvent = {
-            title,
-            start: arg.date,
-            allDay: arg.allDay
-          };
-          
-          arg.view.calendar.addEvent(newEvent);
-    
-          // it has to post on the 
-           // it has to post on the server
-        try {
-          await postEvent({
-            name: title,
-            description: description || '',
-            date: arg.date,
-            location: location || ''
-          });
-          console.log('Event posted successfully');
-        } catch (error) {
-          console.error('Error posting event:', error);
-        }
+  const calendarRef = useRef<FullCalendar>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const events = await getEvents();
+      events.forEach((event: IEvent) => {
+        const newEvent = {
+          id: event._id?.toString(),
+          title: event.name,
+          start: event.date,
+          allDay: true,
+          extendedProps: {
+            description: event.description || '',
+            location: event.location || ''
           }
-    };
-    
-      return (
-        <>
-          <FullCalendar
-            plugins={[dayGridPlugin, interactionPlugin]}
-            initialView="dayGridMonth"
-            dateClick={handleDateClick}
-          />
-        </>
-      )
+        };
+        calendarRef.current?.getApi().addEvent(newEvent);
+      });
+    }
+
+    fetchData();
+  }, []);
+
+  const handleDateClick = async (event: any) => {
+    createEvent(event);
+  };
+
+  const handleEventClick = (info: any) => {
+    showEventInfo(info);
+  }
+
+  const handleEventChange = async (changeInfo: any) => {
+    persistUpdates(changeInfo);
+  };
+
+  const handleEventDelete = async (eventInfo: any) => {
+    removeEvent(eventInfo);
+  }
+
+  const renderEventContent = (eventInfo: any) => {
+    return (
+      <div>
+        <b>{eventInfo.timeText}</b>
+        <i>{eventInfo.event.title}</i>
+        <div>
+          <button onClick={() => handleEventClick(eventInfo)}>View</button>
+          <button onClick={() => handleEventChange(eventInfo)}>Update</button>
+          <button onClick={() => handleEventDelete(eventInfo)}>Delete</button>
+        </div>
+      </div>
+    );
+  };
+  return (
+    <>
+      <FullCalendar
+        ref={calendarRef}
+        plugins={[dayGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        dateClick={handleDateClick}
+        eventContent={renderEventContent} // allows to show buttons on events
+      />
+    </>
+  )
 }
 
 export default Calendar;
